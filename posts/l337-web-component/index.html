@@ -16,8 +16,19 @@
     <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
         <span class="k">super</span><span class="p">();</span>
 
+        <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+
         <span class="k">this</span><span class="p">.</span><span class="nx">shadowTextNode</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">textNode</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">observer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MutationObserver</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="nx">e</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">addedNodes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">textContent</span><span class="p">;</span>
+
+            <span class="nx">self</span><span class="p">.</span><span class="nx">_onTranslate</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span>
+        <span class="p">});</span>
+
+        <span class="k">this</span><span class="p">.</span><span class="nx">observer</span><span class="p">.</span><span class="nx">observe</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nx">childList</span><span class="o">:</span> <span class="kc">true</span>
+        <span class="p">});</span>
 
         <span class="kd">var</span> <span class="nx">shadow</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">attachShadow</span><span class="p">({</span>
             <span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;open&#39;</span>
@@ -26,7 +37,6 @@
         <span class="nx">shadow</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">shadowTextNode</span><span class="p">);</span>
 
         <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">_onTextChange</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onTextChange</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
     <span class="p">}</span>
 
     <span class="nx">connectedCallback</span><span class="p">()</span> <span class="p">{</span>
@@ -41,9 +51,7 @@
     <span class="nx">disconnectedCallback</span><span class="p">()</span> <span class="p">{</span>
         <span class="nb">document</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s1">&#39;readystatechange&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">textNode</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">textNode</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s1">&#39;DOMCharacterDataModified&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onTextChange</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
-        <span class="p">}</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">observer</span><span class="p">.</span><span class="nx">disconnect</span><span class="p">();</span>
     <span class="p">}</span>
 
     <span class="nx">_onLoad</span><span class="p">()</span> <span class="p">{</span>
@@ -63,17 +71,11 @@
             <span class="k">this</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">textNode</span><span class="p">);</span>
         <span class="p">}</span>
 
-        <span class="k">this</span><span class="p">.</span><span class="nx">textNode</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;DOMCharacterDataModified&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onTextChange</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
-
         <span class="k">this</span><span class="p">.</span><span class="nx">_onTranslate</span><span class="p">()</span>
     <span class="p">}</span>
 
-    <span class="nx">_onTextChange</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">_onTranslate</span><span class="p">();</span>
-    <span class="p">}</span>
-
-    <span class="nx">_onTranslate</span><span class="p">()</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="p">((</span><span class="k">this</span><span class="p">.</span><span class="nx">textNode</span> <span class="o">||</span> <span class="p">{}).</span><span class="nx">textContent</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="nx">_onTranslate</span><span class="p">(</span><span class="nx">_text</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="p">(</span><span class="nx">_text</span> <span class="o">||</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">textNode</span> <span class="o">||</span> <span class="p">{}).</span><span class="nx">textContent</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
             <span class="p">.</span><span class="nx">trim</span><span class="p">()</span>
             <span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span>
         <span class="kd">var</span> <span class="nx">translated</span> <span class="o">=</span> <span class="nx">text</span>
@@ -102,8 +104,19 @@
     <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
         <span class="k">super</span><span class="p">();</span>
 
+        <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+
         <span class="k">this</span><span class="p">.</span><span class="nx">shadowTextNode</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">textNode</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">observer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MutationObserver</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="nx">e</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">addedNodes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">textContent</span><span class="p">;</span>
+
+            <span class="nx">self</span><span class="p">.</span><span class="nx">_onTranslate</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span>
+        <span class="p">});</span>
+
+        <span class="k">this</span><span class="p">.</span><span class="nx">observer</span><span class="p">.</span><span class="nx">observe</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nx">childList</span><span class="o">:</span> <span class="kc">true</span>
+        <span class="p">});</span>
 
         <span class="kd">var</span> <span class="nx">shadow</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">attachShadow</span><span class="p">({</span>
             <span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;open&#39;</span>
@@ -112,12 +125,11 @@
         <span class="nx">shadow</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">shadowTextNode</span><span class="p">);</span>
 
         <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">_onTextChange</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onTextChange</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
     <span class="p">}</span>
 
     <span class="c1">// ...
 </span><span class="c1"></span><span class="p">}</span>
-</code></pre></div><p>Here&rsquo;s our class and constructor. Note that our class extends <strong><code>HTMLElement</code></strong>. We create a <strong><code>textNode</code></strong> that will be attached to the <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM" target="_blank">Shadow DOM</a> of our Custom Element. After that, we just bind a few callbacks that will be used later.</p><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// ...
+</code></pre></div><p>Here&rsquo;s our class and constructor. Note that our class extends <strong><code>HTMLElement</code></strong>. We create a <strong><code>textNode</code></strong> that will be attached to the <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM" target="_blank">Shadow DOM</a> of our Custom Element. After that, we just bind a few callbacks that will be used later.</p><p>We also apply a listener to our Custom Element, waiting for a <strong>childList</strong> event. This is the event we will hook into to re-translate the text if the text is changed, since otherwise we are really only waiting for an element to be attached to the DOM. After the element loads (and/or after the text is changed), we trigger the <strong><code>_onTranslate()</code></strong> function.</p><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// ...
 </span><span class="c1"></span>
     <span class="nx">connectedCallback</span><span class="p">()</span> <span class="p">{</span>
         <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;readystatechange&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
@@ -131,9 +143,7 @@
     <span class="nx">disconnectedCallback</span><span class="p">()</span> <span class="p">{</span>
         <span class="nb">document</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s1">&#39;readystatechange&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">textNode</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">textNode</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s1">&#39;DOMCharacterDataModified&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onTextChange</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
-        <span class="p">}</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">observer</span><span class="p">.</span><span class="nx">disconnect</span><span class="p">();</span>
     <span class="p">}</span>
 
 <span class="c1">// ...
@@ -156,17 +166,11 @@
             <span class="k">this</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">textNode</span><span class="p">);</span>
         <span class="p">}</span>
 
-        <span class="k">this</span><span class="p">.</span><span class="nx">textNode</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;DOMCharacterDataModified&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onTextChange</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
-
         <span class="k">this</span><span class="p">.</span><span class="nx">_onTranslate</span><span class="p">()</span>
     <span class="p">}</span>
 
-    <span class="nx">_onTextChange</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">_onTranslate</span><span class="p">();</span>
-    <span class="p">}</span>
-
 <span class="c1">// ...
-</span></code></pre></div><p>Here we try to load the Custom Element. If the document is not ready, we do not load.</p><p>Next we grab the first <strong><code>textNode</code></strong> inside the <strong><code>&lt;l337-5p34k&gt;</code></strong> element, if one does not exist, we create one and append it to the element.</p><p>Then we apply a listener to our <strong><code>textNode</code></strong>, waiting for a <strong>DOMCharacterDataModified</strong> event. This is the event we will hook into to re-translate the text if the text is changed, since otherwise we are really only waiting for an element to be attached to the DOM. After the element loads (and/or after the text is changed), we trigger the <strong><code>_onTranslate()</code></strong> function.</p><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// ...
+</span></code></pre></div><p>Here we try to load the Custom Element. If the document is not ready, we do not load.</p><p>Next we grab the first <strong><code>textNode</code></strong> inside the <strong><code>&lt;l337-5p34k&gt;</code></strong> element, if one does not exist, we create one and append it to the element.</p><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// ...
 </span><span class="c1"></span>
     <span class="nx">_onTranslate</span><span class="p">()</span> <span class="p">{</span>
         <span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="p">((</span><span class="k">this</span><span class="p">.</span><span class="nx">textNode</span> <span class="o">||</span> <span class="p">{}).</span><span class="nx">textContent</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
