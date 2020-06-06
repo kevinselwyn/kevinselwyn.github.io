@@ -1,1 +1,849 @@
-<?xml-stylesheet type="text/xsl" href="#stylesheet" ?> <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><xsl:stylesheet id="stylesheet" version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" exclude-result-prefixes="xsl"><xsl:output method="html" doctype-system="about:legacy-compat"><xsl:template match="/rss"><html lang="en-us"><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>math RSS | Kevin Selwyn</title><style>body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;line-height:1.6;display:flex;flex-direction:column;min-height:100vh;margin:0;padding:0}img{max-width:100%;border-radius:.2rem}pre{overflow-x:auto;border:.1rem solid #d3d3d3;padding:1rem}code{font-family:SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace}.Banner{list-style:none;display:flex;flex-flow:row-reverse wrap-reverse;justify-content:space-between;margin:0;padding:0}.Banner-item:nth-child(1){order:4}.Banner-item:nth-child(2){order:3}.Banner-item:nth-child(3){order:2}.Banner-item:nth-child(4){order:1}.Banner-link{font-size:1.25rem;color:#fff;padding:.5rem 1rem}.Heading{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline}.Heading-title{margin:1.5rem .5rem 0 0}.Heading-link{color:inherit}.Tags{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;margin:1.5rem 0;padding:0}.Tags-item{border-radius:.2rem;margin:.2rem;padding:0 .3rem}.Tags-link{color:#fff}.Pagination{font-size:1.25rem;color:inherit}.Pagination--right{float:right}.Footer{text-align:center;margin:1rem 0}.u-expand{flex-grow:1}.u-wrapper{max-width:42rem;margin:auto}.u-padding{padding:0 1rem}.u-background{background:teal}.u-clickable{font-weight:700;text-decoration:none;display:inline-block}</style></head><body><nav class="u-background"><div class="u-wrapper"><ul class="Banner"><li class="Banner-item u-expand"><a class="Banner-link u-clickable" href="/">Kevin Selwyn</a></li><li class="Banner-item"><a class="Banner-link u-clickable" href="/resume/">Resume</a></li><li class="Banner-item"><a class="Banner-link u-clickable" href="/posts/">Posts</a></li><li class="Banner-item"><a class="Banner-link u-clickable" href="/tags/">Tags</a></li><li class="Banner-item"><a class="Banner-link u-clickable" href="/categories/">Categories</a></li></ul></div></nav><main class="u-expand"><div class="u-wrapper"><div class="u-padding"><h2 class="Heading-title"><a class="Heading-link u-clickable" href="/categories/math/index.xml" rel="bookmark">math RSS</a></h2><p>To subscribe to this RSS feed, copy its address and paste it into your favorite feed reader.</p></div></div></main></body></html></xsl:template></xsl:stylesheet><channel><title>math on Kevin Selwyn</title><link>/categories/math/<description>Recent content in math on Kevin Selwyn</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastbuilddate>Fri, 19 Apr 2019 14:58:04 -0400</lastbuilddate><atom:link href="/categories/math/index.xml" rel="self" type="application/rss+xml"><item><title>Trombones Adjusted for Inflation</title><link>/posts/trombones-adjusted-for-inflation/<pubdate>Fri, 19 Apr 2019 14:58:04 -0400</pubdate><guid>/posts/trombones-adjusted-for-inflation/</guid><description>&lt;p&gt;In addition to being a software engineer, I also hold a Bachelor of Fine Arts in Musical Theatre, so when these two worlds collide, I get very excited.&lt;/p&gt; &lt;p&gt;Meredith Willson&amp;rsquo;s The Music Man has always been a favorite musical of mine (despite my perpetual outrage that it beat West Side Story and took the Tony Award home in 1957).&lt;/p&gt; &lt;p&gt;&lt;img src=&#34;/img/posts/trombones-adjusted-for-inflation/music-man.gif&#34; alt=&#34;The Music Man&#34; /&gt;&lt;/p&gt; &lt;p&gt;One of the most exciting numbers in the show is &amp;ldquo;Seventy-Six Trombones&amp;rdquo;, where Professor Harold Hill gets the town of River City, Iowa hyped about the possibility of their very own marching band.&lt;/p&gt; &lt;p&gt;The lyrics mention:&lt;/p&gt; &lt;pre&gt;&lt;code&gt;Seventy-six trombones led the big parade With a hundred and ten cornets close at hand &lt;/code&gt;&lt;/pre&gt; &lt;p&gt;With a &lt;a href=&#34;http://www.playbill.com/article/hugh-jackman-to-star-in-the-music-man-on-broadway&#34; target=&#34;_blank&#34;&gt;new production&lt;/a&gt; being mounted on Broadway in 2020, I wondered how they would update the show for modern times.&lt;/p&gt; &lt;p&gt;One such way would be adjusting the number of trombones (and cornets for good measure) for inflation, having their number move in parallel with the buying power of the United States Dollar.&lt;/p&gt; &lt;h2 id=&#34;getting-the-data&#34;&gt;Getting The Data&lt;/h2&gt; &lt;p&gt;USD inflation data is available in many locations, but a nice, neat table exists on the website for the US Inflation Calculator. The data we&amp;rsquo;re specifically looking for is &lt;a href=&#34;https://www.usinflationcalculator.com/inflation/consumer-price-index-and-annual-percent-changes-from-1913-to-2008/&#34; target=&#34;_blank&#34;&gt;CPI (Consumer Price Index)&lt;/a&gt;.&lt;/p&gt; &lt;p&gt;CPI as defined by the Bureau of Labor Statistics is:&lt;/p&gt; &lt;pre&gt;&lt;code&gt;a measure of the average change over time in the prices paid by urban consumers for a market basket of consumer goods and services. &lt;/code&gt;&lt;/pre&gt; &lt;p&gt;Here&amp;rsquo;s the average data from 1913 to 2018:&lt;/p&gt; &lt;table&gt; &lt;thead&gt; &lt;tr&gt; &lt;th&gt;year&lt;/th&gt; &lt;th&gt;cpi&lt;/th&gt; &lt;/tr&gt; &lt;/thead&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;1913&lt;/td&gt; &lt;td&gt;9.9&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1914&lt;/td&gt; &lt;td&gt;10&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1915&lt;/td&gt; &lt;td&gt;10.1&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1916&lt;/td&gt; &lt;td&gt;10.9&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1917&lt;/td&gt; &lt;td&gt;12.8&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1918&lt;/td&gt; &lt;td&gt;15.1&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1919&lt;/td&gt; &lt;td&gt;17.3&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1920&lt;/td&gt; &lt;td&gt;20&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1921&lt;/td&gt; &lt;td&gt;17.9&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1922&lt;/td&gt; &lt;td&gt;16.8&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1923&lt;/td&gt; &lt;td&gt;17.1&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1924&lt;/td&gt; &lt;td&gt;17.1&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1925&lt;/td&gt; &lt;td&gt;17.5&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1926&lt;/td&gt; &lt;td&gt;17.7&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1927&lt;/td&gt; &lt;td&gt;17.4&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1928&lt;/td&gt; &lt;td&gt;17.1&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1929&lt;/td&gt; &lt;td&gt;17.1&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1930&lt;/td&gt; &lt;td&gt;16.7&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1931&lt;/td&gt; &lt;td&gt;15.2&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1932&lt;/td&gt; &lt;td&gt;13.7&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1933&lt;/td&gt; &lt;td&gt;13&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1934&lt;/td&gt; &lt;td&gt;13.4&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1935&lt;/td&gt; &lt;td&gt;13.7&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1936&lt;/td&gt; &lt;td&gt;13.9&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1937&lt;/td&gt; &lt;td&gt;14.4&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1938&lt;/td&gt; &lt;td&gt;14.1&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1939&lt;/td&gt; &lt;td&gt;13.9&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1940&lt;/td&gt; &lt;td&gt;14&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1941&lt;/td&gt; &lt;td&gt;14.7&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1942&lt;/td&gt; &lt;td&gt;16.3&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1943&lt;/td&gt; &lt;td&gt;17.3&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1944&lt;/td&gt; &lt;td&gt;17.6&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1945&lt;/td&gt; &lt;td&gt;18&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1946&lt;/td&gt; &lt;td&gt;19.5&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1947&lt;/td&gt; &lt;td&gt;22.3&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1948&lt;/td&gt; &lt;td&gt;24.1&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1949&lt;/td&gt; &lt;td&gt;23.8&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1950&lt;/td&gt; &lt;td&gt;24.1&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1951&lt;/td&gt; &lt;td&gt;26&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1952&lt;/td&gt; &lt;td&gt;26.5&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1953&lt;/td&gt; &lt;td&gt;26.7&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1954&lt;/td&gt; &lt;td&gt;26.9&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1955&lt;/td&gt; &lt;td&gt;26.8&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1956&lt;/td&gt; &lt;td&gt;27.2&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1957&lt;/td&gt; &lt;td&gt;28.1&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1958&lt;/td&gt; &lt;td&gt;28.9&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1959&lt;/td&gt; &lt;td&gt;29.1&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1960&lt;/td&gt; &lt;td&gt;29.6&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1961&lt;/td&gt; &lt;td&gt;29.9&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1962&lt;/td&gt; &lt;td&gt;30.2&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1963&lt;/td&gt; &lt;td&gt;30.6&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1964&lt;/td&gt; &lt;td&gt;31&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1965&lt;/td&gt; &lt;td&gt;31.5&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1966&lt;/td&gt; &lt;td&gt;32.4&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1967&lt;/td&gt; &lt;td&gt;33.4&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1968&lt;/td&gt; &lt;td&gt;34.8&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1969&lt;/td&gt; &lt;td&gt;36.7&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1970&lt;/td&gt; &lt;td&gt;38.8&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1971&lt;/td&gt; &lt;td&gt;40.5&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1972&lt;/td&gt; &lt;td&gt;41.8&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1973&lt;/td&gt; &lt;td&gt;44.4&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1974&lt;/td&gt; &lt;td&gt;49.3&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1975&lt;/td&gt; &lt;td&gt;53.8&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1976&lt;/td&gt; &lt;td&gt;56.9&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1977&lt;/td&gt; &lt;td&gt;60.6&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1978&lt;/td&gt; &lt;td&gt;65.2&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1979&lt;/td&gt; &lt;td&gt;72.6&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1980&lt;/td&gt; &lt;td&gt;82.4&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1981&lt;/td&gt; &lt;td&gt;90.9&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1982&lt;/td&gt; &lt;td&gt;96.5&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1983&lt;/td&gt; &lt;td&gt;99.6&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1984&lt;/td&gt; &lt;td&gt;103.9&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1985&lt;/td&gt; &lt;td&gt;107.6&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1986&lt;/td&gt; &lt;td&gt;109.6&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1987&lt;/td&gt; &lt;td&gt;113.6&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1988&lt;/td&gt; &lt;td&gt;118.3&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1989&lt;/td&gt; &lt;td&gt;124&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1990&lt;/td&gt; &lt;td&gt;130.7&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1991&lt;/td&gt; &lt;td&gt;136.2&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1992&lt;/td&gt; &lt;td&gt;140.3&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1993&lt;/td&gt; &lt;td&gt;144.5&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1994&lt;/td&gt; &lt;td&gt;148.2&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1995&lt;/td&gt; &lt;td&gt;152.4&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1996&lt;/td&gt; &lt;td&gt;156.9&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1997&lt;/td&gt; &lt;td&gt;160.5&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1998&lt;/td&gt; &lt;td&gt;163&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;1999&lt;/td&gt; &lt;td&gt;166.6&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;2000&lt;/td&gt; &lt;td&gt;172.2&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;2001&lt;/td&gt; &lt;td&gt;177.1&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;2002&lt;/td&gt; &lt;td&gt;179.9&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;2003&lt;/td&gt; &lt;td&gt;184&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;2004&lt;/td&gt; &lt;td&gt;188.9&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;2005&lt;/td&gt; &lt;td&gt;195.3&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;2006&lt;/td&gt; &lt;td&gt;201.6&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;2007&lt;/td&gt; &lt;td&gt;207.3&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;2008&lt;/td&gt; &lt;td&gt;215.303&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;2009&lt;/td&gt; &lt;td&gt;214.537&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;2010&lt;/td&gt; &lt;td&gt;218.056&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;2011&lt;/td&gt; &lt;td&gt;224.939&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;2012&lt;/td&gt; &lt;td&gt;229.594&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;2013&lt;/td&gt; &lt;td&gt;232.957&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;2014&lt;/td&gt; &lt;td&gt;236.736&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;2015&lt;/td&gt; &lt;td&gt;237.017&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;2016&lt;/td&gt; &lt;td&gt;240.007&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;2017&lt;/td&gt; &lt;td&gt;245.12&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;2018&lt;/td&gt; &lt;td&gt;251.107&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; &lt;h2 id=&#34;analyzing-the-data&#34;&gt;Analyzing The Data&lt;/h2&gt; &lt;p&gt;Now that we have our historical data, all that&amp;rsquo;s left to do is some easy math.&lt;/p&gt; &lt;p&gt;But from which year should we start adjusting?&lt;/p&gt; &lt;ul&gt; &lt;li&gt;&lt;code&gt;1912&lt;/code&gt; - The year The Music Man is set, or&lt;/li&gt; &lt;li&gt;&lt;code&gt;1957&lt;/code&gt; - The year The Music Man premiered on Broadway?&lt;/li&gt; &lt;/ul&gt; &lt;p&gt;Why not both?!&lt;/p&gt; &lt;p&gt;&lt;strong&gt;NOTE: We will be using the 2018 CPI because at the time of writing, 2019 is not over&amp;hellip;and 2020 has not yet begun. So 2018 will get us as close as we can.&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;The math is:&lt;/p&gt; &lt;pre&gt;&lt;code&gt;Old trombones * (New CPI / Old CPI) = New trombones &lt;/code&gt;&lt;/pre&gt; &lt;p&gt;So for 1912 dollars (really 1913 dollars is as close as we can get):&lt;/p&gt; &lt;pre&gt;&lt;code&gt;76 * (251.107 / 9.9) = 1927.6901010101008 110 * (251.107 / 9.9) = 2790.0777777777776 &lt;/code&gt;&lt;/pre&gt; &lt;p&gt;I can hear it now:&lt;/p&gt; &lt;pre&gt;&lt;code&gt;One thousand nine hundred and twenty-seven trombones led the big parade With two thousand seven hundred and ninety cornets close at hand &lt;/code&gt;&lt;/pre&gt; &lt;p&gt;Things are a little less impressive with 1957 money:&lt;/p&gt; &lt;pre&gt;&lt;code&gt;76 * (251.107 / 28.1) = 679.1506049822063 110 * (251.107 / 28.1) = 982.9811387900355 &lt;/code&gt;&lt;/pre&gt; &lt;p&gt;One more time:&lt;/p&gt; &lt;pre&gt;&lt;code&gt;Six hundred seventy-nine trombones led the big parade With nine hundred eighty-two cornets close at hand &lt;/code&gt;&lt;/pre&gt; &lt;p&gt;Dear Broadway,&lt;/p&gt; &lt;p&gt;I am available as a consult for historial brass-based inflationary accuracy.&lt;/p&gt;</description></item></channel></rss>
+
+
+
+<?xml-stylesheet type="text/xsl" href="#stylesheet" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <xsl:stylesheet id="stylesheet" version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" exclude-result-prefixes="xsl">
+    <xsl:output method="html" doctype-system="about:legacy-compat" />
+    <xsl:template match="/rss">
+      <html lang="en-us">
+        <head>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <title>math RSS | Kevin Selwyn</title>
+          <style>body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  border-radius: 0.2rem;
+}
+
+pre {
+  overflow-x: auto;
+  border: 0.1rem solid lightgray;
+  padding: 1rem;
+}
+
+code {
+  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+.Banner {
+  list-style: none;
+  display: flex;
+  flex-flow: row-reverse wrap-reverse;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+
+.Banner-item:nth-child(1) {
+  order: 4;
+}
+
+
+
+.Banner-item:nth-child(2) {
+  order: 3;
+}
+
+
+
+.Banner-item:nth-child(3) {
+  order: 2;
+}
+
+
+
+.Banner-item:nth-child(4) {
+  order: 1;
+}
+
+
+
+.Banner-link {
+  font-size: 1.25rem;
+  color: white;
+  padding: 0.5rem 1rem;
+}
+
+.Heading {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.Heading-title {
+  margin: 1.5rem 0.5rem 0 0;
+}
+
+.Heading-link {
+  color: inherit;
+}
+
+.Tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 1.5rem 0;
+  padding: 0;
+}
+
+.Tags-item {
+  border-radius: 0.2rem;
+  margin: 0.2rem;
+  padding: 0 0.3rem;
+}
+
+.Tags-link {
+  color: white;
+}
+
+.Pagination {
+  font-size: 1.25rem;
+  color: inherit;
+}
+
+.Pagination--right {
+  float: right;
+}
+
+.Footer {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.u-expand {
+  flex-grow: 1;
+}
+
+.u-wrapper {
+  max-width: 42rem;
+  margin: auto;
+}
+
+.u-padding {
+  padding: 0 1rem;
+}
+
+.u-background {
+  background: teal;
+}
+
+.u-clickable {
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+}</style>
+        </head>
+        <body>
+          <nav class="u-background">
+  <div class="u-wrapper">
+    <ul class="Banner">
+      <li class="Banner-item u-expand">
+        <a class="Banner-link u-clickable" href="/">Kevin Selwyn</a>
+      </li>
+      
+      <li class="Banner-item">
+        <a class="Banner-link u-clickable" href="/resume/">Resume</a>
+      </li>
+      
+      <li class="Banner-item">
+        <a class="Banner-link u-clickable" href="/posts/">Posts</a>
+      </li>
+      
+      <li class="Banner-item">
+        <a class="Banner-link u-clickable" href="/tags/">Tags</a>
+      </li>
+      
+      <li class="Banner-item">
+        <a class="Banner-link u-clickable" href="/categories/">Categories</a>
+      </li>
+      
+    </ul>
+  </div>
+</nav>
+          <main class="u-expand">
+            <div class="u-wrapper">
+              <div class="u-padding">
+                <h2 class="Heading-title">
+                  
+                  <a class="Heading-link u-clickable" href="/categories/math/index.xml" rel="bookmark">math RSS</a>
+                  
+                </h2>
+                
+                <p>
+                  To subscribe to this RSS feed, copy its address and paste it into your favorite feed reader.
+                </p>
+                
+              </div>
+            </div>
+          </main>
+          
+        </body>
+      </html>
+    </xsl:template>
+  </xsl:stylesheet>
+  <channel>
+    <title>math on Kevin Selwyn</title>
+    <link>/categories/math/</link>
+    <description>Recent content in math on Kevin Selwyn</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 19 Apr 2019 14:58:04 -0400</lastBuildDate>
+    <atom:link href="/categories/math/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Trombones Adjusted for Inflation</title>
+      <link>/posts/trombones-adjusted-for-inflation/</link>
+      <pubDate>Fri, 19 Apr 2019 14:58:04 -0400</pubDate>
+      <guid>/posts/trombones-adjusted-for-inflation/</guid>
+      <description>
+
+&lt;p&gt;In addition to being a software engineer, I also hold a Bachelor of Fine Arts in
+Musical Theatre, so when these two worlds collide, I get very excited.&lt;/p&gt;
+
+&lt;p&gt;Meredith Willson&amp;rsquo;s The Music Man has always been a favorite musical of mine
+(despite my perpetual outrage that it beat West Side Story and took the Tony
+Award home in 1957).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;/img/posts/trombones-adjusted-for-inflation/music-man.gif&#34; alt=&#34;The Music Man&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;One of the most exciting numbers in the show is &amp;ldquo;Seventy-Six Trombones&amp;rdquo;, where
+Professor Harold Hill gets the town of River City, Iowa hyped about the
+possibility of their very own marching band.&lt;/p&gt;
+
+&lt;p&gt;The lyrics mention:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Seventy-six trombones led the big parade
+With a hundred and ten cornets close at hand
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;With a &lt;a href=&#34;http://www.playbill.com/article/hugh-jackman-to-star-in-the-music-man-on-broadway&#34;
+target=&#34;_blank&#34;&gt;new production&lt;/a&gt;
+being mounted on Broadway in 2020, I wondered how they would update the show
+for modern times.&lt;/p&gt;
+
+&lt;p&gt;One such way would be adjusting the number of trombones (and cornets for good
+measure) for inflation, having their number move in parallel with the buying
+power of the United States Dollar.&lt;/p&gt;
+
+&lt;h2 id=&#34;getting-the-data&#34;&gt;Getting The Data&lt;/h2&gt;
+
+&lt;p&gt;USD inflation data is available in many locations, but a nice, neat table exists
+on the website for the US Inflation Calculator. The data we&amp;rsquo;re specifically
+looking for is &lt;a href=&#34;https://www.usinflationcalculator.com/inflation/consumer-price-index-and-annual-percent-changes-from-1913-to-2008/&#34;
+target=&#34;_blank&#34;&gt;CPI (Consumer Price Index)&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;CPI as defined by the Bureau of Labor Statistics is:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;a measure of the average change over time in the prices paid by urban consumers
+for a market basket of consumer goods and services.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here&amp;rsquo;s the average data from 1913 to 2018:&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;year&lt;/th&gt;
+&lt;th&gt;cpi&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;1913&lt;/td&gt;
+&lt;td&gt;9.9&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1914&lt;/td&gt;
+&lt;td&gt;10&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1915&lt;/td&gt;
+&lt;td&gt;10.1&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1916&lt;/td&gt;
+&lt;td&gt;10.9&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1917&lt;/td&gt;
+&lt;td&gt;12.8&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1918&lt;/td&gt;
+&lt;td&gt;15.1&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1919&lt;/td&gt;
+&lt;td&gt;17.3&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1920&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1921&lt;/td&gt;
+&lt;td&gt;17.9&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1922&lt;/td&gt;
+&lt;td&gt;16.8&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1923&lt;/td&gt;
+&lt;td&gt;17.1&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1924&lt;/td&gt;
+&lt;td&gt;17.1&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1925&lt;/td&gt;
+&lt;td&gt;17.5&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1926&lt;/td&gt;
+&lt;td&gt;17.7&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1927&lt;/td&gt;
+&lt;td&gt;17.4&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1928&lt;/td&gt;
+&lt;td&gt;17.1&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1929&lt;/td&gt;
+&lt;td&gt;17.1&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1930&lt;/td&gt;
+&lt;td&gt;16.7&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1931&lt;/td&gt;
+&lt;td&gt;15.2&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1932&lt;/td&gt;
+&lt;td&gt;13.7&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1933&lt;/td&gt;
+&lt;td&gt;13&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1934&lt;/td&gt;
+&lt;td&gt;13.4&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1935&lt;/td&gt;
+&lt;td&gt;13.7&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1936&lt;/td&gt;
+&lt;td&gt;13.9&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1937&lt;/td&gt;
+&lt;td&gt;14.4&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1938&lt;/td&gt;
+&lt;td&gt;14.1&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1939&lt;/td&gt;
+&lt;td&gt;13.9&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1940&lt;/td&gt;
+&lt;td&gt;14&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1941&lt;/td&gt;
+&lt;td&gt;14.7&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1942&lt;/td&gt;
+&lt;td&gt;16.3&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1943&lt;/td&gt;
+&lt;td&gt;17.3&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1944&lt;/td&gt;
+&lt;td&gt;17.6&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1945&lt;/td&gt;
+&lt;td&gt;18&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1946&lt;/td&gt;
+&lt;td&gt;19.5&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1947&lt;/td&gt;
+&lt;td&gt;22.3&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1948&lt;/td&gt;
+&lt;td&gt;24.1&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1949&lt;/td&gt;
+&lt;td&gt;23.8&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1950&lt;/td&gt;
+&lt;td&gt;24.1&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1951&lt;/td&gt;
+&lt;td&gt;26&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1952&lt;/td&gt;
+&lt;td&gt;26.5&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1953&lt;/td&gt;
+&lt;td&gt;26.7&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1954&lt;/td&gt;
+&lt;td&gt;26.9&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1955&lt;/td&gt;
+&lt;td&gt;26.8&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1956&lt;/td&gt;
+&lt;td&gt;27.2&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1957&lt;/td&gt;
+&lt;td&gt;28.1&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1958&lt;/td&gt;
+&lt;td&gt;28.9&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1959&lt;/td&gt;
+&lt;td&gt;29.1&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1960&lt;/td&gt;
+&lt;td&gt;29.6&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1961&lt;/td&gt;
+&lt;td&gt;29.9&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1962&lt;/td&gt;
+&lt;td&gt;30.2&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1963&lt;/td&gt;
+&lt;td&gt;30.6&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1964&lt;/td&gt;
+&lt;td&gt;31&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1965&lt;/td&gt;
+&lt;td&gt;31.5&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1966&lt;/td&gt;
+&lt;td&gt;32.4&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1967&lt;/td&gt;
+&lt;td&gt;33.4&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1968&lt;/td&gt;
+&lt;td&gt;34.8&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1969&lt;/td&gt;
+&lt;td&gt;36.7&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1970&lt;/td&gt;
+&lt;td&gt;38.8&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1971&lt;/td&gt;
+&lt;td&gt;40.5&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1972&lt;/td&gt;
+&lt;td&gt;41.8&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1973&lt;/td&gt;
+&lt;td&gt;44.4&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1974&lt;/td&gt;
+&lt;td&gt;49.3&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1975&lt;/td&gt;
+&lt;td&gt;53.8&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1976&lt;/td&gt;
+&lt;td&gt;56.9&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1977&lt;/td&gt;
+&lt;td&gt;60.6&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1978&lt;/td&gt;
+&lt;td&gt;65.2&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1979&lt;/td&gt;
+&lt;td&gt;72.6&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1980&lt;/td&gt;
+&lt;td&gt;82.4&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1981&lt;/td&gt;
+&lt;td&gt;90.9&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1982&lt;/td&gt;
+&lt;td&gt;96.5&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1983&lt;/td&gt;
+&lt;td&gt;99.6&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1984&lt;/td&gt;
+&lt;td&gt;103.9&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1985&lt;/td&gt;
+&lt;td&gt;107.6&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1986&lt;/td&gt;
+&lt;td&gt;109.6&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1987&lt;/td&gt;
+&lt;td&gt;113.6&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1988&lt;/td&gt;
+&lt;td&gt;118.3&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1989&lt;/td&gt;
+&lt;td&gt;124&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1990&lt;/td&gt;
+&lt;td&gt;130.7&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1991&lt;/td&gt;
+&lt;td&gt;136.2&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1992&lt;/td&gt;
+&lt;td&gt;140.3&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1993&lt;/td&gt;
+&lt;td&gt;144.5&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1994&lt;/td&gt;
+&lt;td&gt;148.2&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1995&lt;/td&gt;
+&lt;td&gt;152.4&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1996&lt;/td&gt;
+&lt;td&gt;156.9&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1997&lt;/td&gt;
+&lt;td&gt;160.5&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1998&lt;/td&gt;
+&lt;td&gt;163&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;1999&lt;/td&gt;
+&lt;td&gt;166.6&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;2000&lt;/td&gt;
+&lt;td&gt;172.2&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;2001&lt;/td&gt;
+&lt;td&gt;177.1&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;2002&lt;/td&gt;
+&lt;td&gt;179.9&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;2003&lt;/td&gt;
+&lt;td&gt;184&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;2004&lt;/td&gt;
+&lt;td&gt;188.9&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;2005&lt;/td&gt;
+&lt;td&gt;195.3&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;2006&lt;/td&gt;
+&lt;td&gt;201.6&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;2007&lt;/td&gt;
+&lt;td&gt;207.3&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;2008&lt;/td&gt;
+&lt;td&gt;215.303&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;2009&lt;/td&gt;
+&lt;td&gt;214.537&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;2010&lt;/td&gt;
+&lt;td&gt;218.056&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;2011&lt;/td&gt;
+&lt;td&gt;224.939&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;2012&lt;/td&gt;
+&lt;td&gt;229.594&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;2013&lt;/td&gt;
+&lt;td&gt;232.957&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;2014&lt;/td&gt;
+&lt;td&gt;236.736&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;2015&lt;/td&gt;
+&lt;td&gt;237.017&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;2016&lt;/td&gt;
+&lt;td&gt;240.007&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;2017&lt;/td&gt;
+&lt;td&gt;245.12&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;2018&lt;/td&gt;
+&lt;td&gt;251.107&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;analyzing-the-data&#34;&gt;Analyzing The Data&lt;/h2&gt;
+
+&lt;p&gt;Now that we have our historical data, all that&amp;rsquo;s left to do is some easy math.&lt;/p&gt;
+
+&lt;p&gt;But from which year should we start adjusting?&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;1912&lt;/code&gt; - The year The Music Man is set, or&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;1957&lt;/code&gt; - The year The Music Man premiered on Broadway?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Why not both?!&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;NOTE: We will be using the 2018 CPI because at the time of writing, 2019 is
+not over&amp;hellip;and 2020 has not yet begun. So 2018 will get us as close as we can.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The math is:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Old trombones * (New CPI / Old CPI) = New trombones
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So for 1912 dollars (really 1913 dollars is as close as we can get):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;76 * (251.107 / 9.9) = 1927.6901010101008
+110 * (251.107 / 9.9) = 2790.0777777777776
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I can hear it now:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;One thousand nine hundred and twenty-seven trombones led the big parade
+With two thousand seven hundred and ninety cornets close at hand
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Things are a little less impressive with 1957 money:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;76 * (251.107 / 28.1) = 679.1506049822063
+110 * (251.107 / 28.1) = 982.9811387900355
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;One more time:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Six hundred seventy-nine trombones led the big parade
+With nine hundred eighty-two cornets close at hand
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Dear Broadway,&lt;/p&gt;
+
+&lt;p&gt;I am available as a consult for historial brass-based inflationary accuracy.&lt;/p&gt;
+</description>
+    </item>
+  </channel>
+</rss>
