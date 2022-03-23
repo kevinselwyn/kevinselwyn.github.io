@@ -1,190 +1,190 @@
-<!DOCTYPE html><html lang="en-us"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kevin Selwyn | l337 Web Component</title><meta name="description" content="Creating a Custom Element that translates text into l337 5p34k"><meta property="og:title" content="Kevin Selwyn | l337 Web Component"><meta property="og:description" content="Creating a Custom Element that translates text into l337 5p34k"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/posts/l337-web-component/style.css"><style>body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;line-height:1.6;display:flex;flex-direction:column;min-height:100vh;margin:0;padding:0}img{max-width:100%;border-radius:.2rem}pre{overflow-x:auto;border:.1rem solid #d3d3d3;padding:1rem}code{font-family:SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace}.Banner{list-style:none;display:flex;flex-flow:row-reverse wrap-reverse;justify-content:space-between;margin:0;padding:0}.Banner-item:nth-child(1){order:4}.Banner-item:nth-child(2){order:3}.Banner-item:nth-child(3){order:2}.Banner-item:nth-child(4){order:1}.Banner-link{font-size:1.25rem;color:#fff;padding:.5rem 1rem}.Heading{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline}.Heading-title{margin:1.5rem .5rem 0 0}.Heading-link{color:inherit}.Tags{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;margin:1.5rem 0;padding:0}.Tags-item{border-radius:.2rem;margin:.2rem;padding:0 .3rem}.Tags-link{color:#fff}.Pagination{font-size:1.25rem;color:inherit}.Pagination--right{float:right}.Footer{text-align:center;margin:1rem 0}.u-expand{flex-grow:1}.u-wrapper{max-width:42rem;margin:auto}.u-padding{padding:0 1rem}.u-background{background:teal}.u-clickable{font-weight:700;text-decoration:none;display:inline-block}</style><meta name="generator" content="Hugo 0.74.2"></head><body><nav class="u-background"><div class="u-wrapper"><ul class="Banner"><li class="Banner-item u-expand"><a class="Banner-link u-clickable" href="/">Kevin Selwyn</a></li><li class="Banner-item"><a class="Banner-link u-clickable" href="/resume/">Resume</a></li><li class="Banner-item"><a class="Banner-link u-clickable" href="/posts/">Posts</a></li><li class="Banner-item"><a class="Banner-link u-clickable" href="/tags/">Tags</a></li><li class="Banner-item"><a class="Banner-link u-clickable" href="/categories/">Categories</a></li></ul></div></nav><main class="u-expand"><div class="u-wrapper"><div class="u-padding"><article><header class="Heading"><h2 class="Heading-title"><a class="Heading-link u-clickable" href="/posts/l337-web-component/" rel="bookmark">l337 Web Component</a></h2><div class="time-info"><time datetime="2019-03-05T09:34:16-05:00">5 March, 2019</time><div class="read-time">&nbsp;</div></div></header><p>Let&rsquo;s make a <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components" target="_blank">Web Component</a> that transforms the text inside to <a href="https://en.wikipedia.org/wiki/Leet" target="_blank">l337 5p34k</a>.</p><p>Here&rsquo;s a working example. Type to translate to l337 5p34k:</p><div class="l337-5p34k"><input type="text" placeholder="The quick red fox jumps over the lazy brown dog."><l337-5p34k>The quick red fox jumps over the lazy brown dog.</l337-5p34k></div><p>Starting with the implementation, this is what we want the markup to look like:</p><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">l337-5p34k</span><span class="p">&gt;</span>The quick red fox jumps over the lazy brown dog.<span class="p">&lt;/</span><span class="nt">l337-5p34k</span><span class="p">&gt;</span>
-</code></pre></div><p>To define a Custom Element, we must use <strong><code>window.customElements</code></strong>, specifically <strong><code>window.customElements.define</code></strong>:</p><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">class</span> <span class="nx">L3375P34K</span> <span class="p">{</span>
-    <span class="c1">// will define below
-</span><span class="c1"></span><span class="p">}</span>
-
-<span class="nx">customElements</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s1">&#39;l337-5p34k&#39;</span><span class="p">,</span> <span class="nx">L3375P34K</span><span class="p">);</span>
-</code></pre></div><p>One thing to note is that the name for a new Custom Element <em>must</em> contain a hyphen. This forces us to namespace our new component.</p><p>Now we create the class that defines the Custom Element:</p><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">L337MAPPING</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">a</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
-    <span class="nx">e</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
-    <span class="nx">g</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span>
-    <span class="nx">o</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="nx">s</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
-    <span class="nx">t</span><span class="o">:</span> <span class="mi">7</span>
-<span class="p">};</span>
-
-<span class="kr">class</span> <span class="nx">L3375P34K</span> <span class="kr">extends</span> <span class="nx">HTMLElement</span> <span class="p">{</span>
-    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
-        <span class="kr">super</span><span class="p">();</span>
-
-        <span class="k">this</span><span class="p">.</span><span class="nx">shadowTextNode</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">textNode</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">observer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MutationObserver</span><span class="p">((</span><span class="nx">e</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-            <span class="kr">const</span> <span class="nx">text</span> <span class="o">=</span> <span class="nx">e</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">addedNodes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">textContent</span><span class="p">;</span>
-
-            <span class="k">this</span><span class="p">.</span><span class="nx">_onTranslate</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span>
-        <span class="p">});</span>
-
-        <span class="k">this</span><span class="p">.</span><span class="nx">observer</span><span class="p">.</span><span class="nx">observe</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">{</span>
-            <span class="nx">childList</span><span class="o">:</span> <span class="kc">true</span>
-        <span class="p">});</span>
-
-        <span class="kr">const</span> <span class="nx">shadow</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">attachShadow</span><span class="p">({</span>
-            <span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;open&#39;</span>
-        <span class="p">});</span>
-
-        <span class="nx">shadow</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">shadowTextNode</span><span class="p">);</span>
-
-        <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="nx">connectedCallback</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;readystatechange&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span><span class="p">();</span>
-    <span class="p">}</span>
-
-    <span class="nx">adoptedCallback</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span><span class="p">();</span>
-    <span class="p">}</span>
-
-    <span class="nx">disconnectedCallback</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nb">document</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s1">&#39;readystatechange&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
-
-        <span class="k">this</span><span class="p">.</span><span class="nx">observer</span><span class="p">.</span><span class="nx">disconnect</span><span class="p">();</span>
-    <span class="p">}</span>
-
-    <span class="nx">_onLoad</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">!==</span> <span class="s1">&#39;complete&#39;</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">return</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="k">this</span><span class="p">.</span><span class="nx">textNode</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">)</span>
-            <span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">node</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-                <span class="k">return</span> <span class="nx">node</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">===</span> <span class="mi">3</span><span class="p">;</span>
-            <span class="p">})</span>
-            <span class="p">.</span><span class="nx">shift</span><span class="p">();</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">textNode</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">textNode</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
-
-            <span class="k">this</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">textNode</span><span class="p">);</span>
-        <span class="p">}</span>
-
-        <span class="k">this</span><span class="p">.</span><span class="nx">_onTranslate</span><span class="p">()</span>
-    <span class="p">}</span>
-
-    <span class="nx">_onTranslate</span><span class="p">(</span><span class="nx">_text</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kr">const</span> <span class="nx">text</span> <span class="o">=</span> <span class="p">(</span><span class="nx">_text</span> <span class="o">||</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">textNode</span> <span class="o">||</span> <span class="p">{}).</span><span class="nx">textContent</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
-            <span class="p">.</span><span class="nx">trim</span><span class="p">()</span>
-            <span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span>
-        <span class="kr">const</span> <span class="nx">translated</span> <span class="o">=</span> <span class="nx">text</span>
-            <span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-            <span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">chr</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-                <span class="k">return</span> <span class="nx">L337MAPPING</span><span class="p">[</span><span class="nx">chr</span><span class="p">]</span> <span class="o">!==</span> <span class="kc">undefined</span> <span class="o">?</span> <span class="nx">L337MAPPING</span><span class="p">[</span><span class="nx">chr</span><span class="p">]</span> <span class="o">:</span> <span class="nx">chr</span><span class="p">;</span>
-            <span class="p">})</span>
-            <span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
-
-        <span class="k">this</span><span class="p">.</span><span class="nx">shadowTextNode</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">translated</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">customElements</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">customElements</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s1">&#39;l337-5p34k&#39;</span><span class="p">,</span> <span class="nx">L3375P34K</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div><p>Let&rsquo;s break that down:</p><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">L337MAPPING</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">a</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
-    <span class="nx">e</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
-    <span class="nx">g</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span>
-    <span class="nx">o</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="nx">s</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
-    <span class="nx">t</span><span class="o">:</span> <span class="mi">7</span>
-<span class="p">};</span>
-</code></pre></div><p>This is our very simple Latin -&gt; l337 mapping. <strong><code>a</code></strong> becomes <strong><code>4</code></strong>, <strong><code>o</code></strong> becomes <strong><code>0</code></strong>, etc.</p><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">class</span> <span class="nx">L3375P34K</span> <span class="kr">extends</span> <span class="nx">HTMLElement</span> <span class="p">{</span>
-    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
-        <span class="kr">super</span><span class="p">();</span>
-
-        <span class="k">this</span><span class="p">.</span><span class="nx">shadowTextNode</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">textNode</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">observer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MutationObserver</span><span class="p">((</span><span class="nx">e</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-            <span class="kr">const</span> <span class="nx">text</span> <span class="o">=</span> <span class="nx">e</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">addedNodes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">textContent</span><span class="p">;</span>
-
-            <span class="k">this</span><span class="p">.</span><span class="nx">_onTranslate</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span>
-        <span class="p">});</span>
-
-        <span class="k">this</span><span class="p">.</span><span class="nx">observer</span><span class="p">.</span><span class="nx">observe</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">{</span>
-            <span class="nx">childList</span><span class="o">:</span> <span class="kc">true</span>
-        <span class="p">});</span>
-
-        <span class="kr">const</span> <span class="nx">shadow</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">attachShadow</span><span class="p">({</span>
-            <span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;open&#39;</span>
-        <span class="p">});</span>
-
-        <span class="nx">shadow</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">shadowTextNode</span><span class="p">);</span>
-
-        <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="c1">// ...
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></div><p>Here&rsquo;s our class and constructor. Note that our class extends <strong><code>HTMLElement</code></strong>. We create a <strong><code>textNode</code></strong> that will be attached to the <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM" target="_blank">Shadow DOM</a> of our Custom Element. After that, we just bind a few callbacks that will be used later.</p><p>We also apply a listener to our Custom Element, waiting for a <strong>childList</strong> event. This is the event we will hook into to re-translate the text if the text is changed, since otherwise we are really only waiting for an element to be attached to the DOM. After the element loads (and/or after the text is changed), we trigger the <strong><code>_onTranslate()</code></strong> function.</p><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// ...
-</span><span class="c1"></span>
-    <span class="nx">connectedCallback</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;readystatechange&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span><span class="p">();</span>
-    <span class="p">}</span>
-
-    <span class="nx">adoptedCallback</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span><span class="p">();</span>
-    <span class="p">}</span>
-
-    <span class="nx">disconnectedCallback</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nb">document</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s1">&#39;readystatechange&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
-
-        <span class="k">this</span><span class="p">.</span><span class="nx">observer</span><span class="p">.</span><span class="nx">disconnect</span><span class="p">();</span>
-    <span class="p">}</span>
-
-<span class="c1">// ...
-</span></code></pre></div><p>Here we have our Custom Element lifecycle methods.</p><ul><li><strong><code>connectedCallback()</code></strong> will be called when the element is connected to the DOM<ul><li>We wait for the document to be loaded. If it&rsquo;s already loaded, we move forward. This helps us instantiate the Custom Element if the page loads with it as opposed to adding it later dynamically.</li></ul></li><li><strong><code>adoptedCallback()</code></strong> will be called when the element is moved to a new document<ul><li>We trigger another load because something may have changed while the element was moving</li></ul></li><li><strong><code>disconnectedCallback()</code></strong> will be called when the element is removed/disconnected from the DOM<ul><li>We clean up some callbacks</li></ul></li></ul><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// ...
-</span><span class="c1"></span>
-    <span class="nx">_onLoad</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">!==</span> <span class="s1">&#39;complete&#39;</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">return</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="k">this</span><span class="p">.</span><span class="nx">textNode</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">)</span>
-            <span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">node</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-                <span class="k">return</span> <span class="nx">node</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">===</span> <span class="mi">3</span><span class="p">;</span>
-            <span class="p">})</span>
-            <span class="p">.</span><span class="nx">shift</span><span class="p">();</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">textNode</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">textNode</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
-
-            <span class="k">this</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">textNode</span><span class="p">);</span>
-        <span class="p">}</span>
-
-        <span class="k">this</span><span class="p">.</span><span class="nx">_onTranslate</span><span class="p">()</span>
-    <span class="p">}</span>
-
-<span class="c1">// ...
-</span></code></pre></div><p>Here we try to load the Custom Element. If the document is not ready, we do not load.</p><p>Next we grab the first <strong><code>textNode</code></strong> inside the <strong><code>&lt;l337-5p34k&gt;</code></strong> element, if one does not exist, we create one and append it to the element.</p><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// ...
-</span><span class="c1"></span>
-    <span class="nx">_onTranslate</span><span class="p">(</span><span class="nx">_text</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kr">const</span> <span class="nx">text</span> <span class="o">=</span> <span class="p">(</span><span class="nx">_text</span> <span class="o">||</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">textNode</span> <span class="o">||</span> <span class="p">{}).</span><span class="nx">textContent</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
-            <span class="p">.</span><span class="nx">trim</span><span class="p">()</span>
-            <span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span>
-        <span class="kr">const</span> <span class="nx">translated</span> <span class="o">=</span> <span class="nx">text</span>
-            <span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-            <span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">chr</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-                <span class="k">return</span> <span class="nx">L337MAPPING</span><span class="p">[</span><span class="nx">chr</span><span class="p">]</span> <span class="o">!==</span> <span class="kc">undefined</span> <span class="o">?</span> <span class="nx">L337MAPPING</span><span class="p">[</span><span class="nx">chr</span><span class="p">]</span> <span class="o">:</span> <span class="nx">chr</span><span class="p">;</span>
-            <span class="p">})</span>
-            <span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
-
-        <span class="k">this</span><span class="p">.</span><span class="nx">shadowTextNode</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">translated</span><span class="p">;</span>
-    <span class="p">}</span>
-
-<span class="c1">// ...
-</span></code></pre></div><p>The translate function is probably the simpliest part of the entire Custom Element. It takes the textContent from the elements <strong><code>textNode</code></strong>, <strong><code>map()</code></strong>s over all the characters, replaces the appropriate ones with the <strong><code>L337MAPPING</code></strong> defined earlier, and assigns the translated text to the Shadow DOM <strong><code>textNode</code></strong>.</p><p>Last thing to do is the actual definition:</p><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">customElements</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">customElements</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s1">&#39;l337-5p34k&#39;</span><span class="p">,</span> <span class="nx">L3375P34K</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div><p>If Custom Elements are not supported, then we won&rsquo;t try to define ours. Again, our Custom Element&rsquo;s name must be hyphenated, <em>but</em> it cannot start with a number, stopping us from naming it &ldquo;1337&rdquo; (which would&rsquo;ve been much more legit).</p><p>And that&rsquo;s it!</p><p>Nice things that could be in the future:</p><ul><li>We could add custom styling to our Custom Element</li><li>We could add CSS or JS functionality to animate characters so it looks like they&rsquo;re being translated before our eyes</li></ul><footer><ul class="Tags"><li class="Tags-item u-background"><a class="Tags-link u-clickable" href="/tags/web-components/" rel="tag">web-components</a></li></ul></footer></article></div></div></main><script src="/js/bundle.min.js"></script><script src="/js/posts/l337-web-component/bundle.js"></script><script src="/js/posts/l337-web-component/l337-5p34k.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=UA-23140413-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-23140413-1")</script></body></html>
+<!DOCTYPE html><html lang="en-us"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kevin Selwyn | l337 Web Component</title><meta name="description" content="Creating a Custom Element that translates text into l337 5p34k"><meta property="og:title" content="Kevin Selwyn | l337 Web Component"><meta property="og:description" content="Creating a Custom Element that translates text into l337 5p34k"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/posts/l337-web-component/style.css"><style>body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;line-height:1.6;display:flex;flex-direction:column;min-height:100vh;margin:0;padding:0}img{max-width:100%;border-radius:.2rem}pre{overflow-x:auto;border:.1rem solid #d3d3d3;padding:1rem}code{font-family:SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace}.Banner{list-style:none;display:flex;flex-flow:row-reverse wrap-reverse;justify-content:space-between;margin:0;padding:0}.Banner-item:nth-child(1){order:4}.Banner-item:nth-child(2){order:3}.Banner-item:nth-child(3){order:2}.Banner-item:nth-child(4){order:1}.Banner-link{font-size:1.25rem;color:#fff;padding:.5rem 1rem}.Heading{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline}.Heading-title{margin:1.5rem .5rem 0 0}.Heading-link{color:inherit}.Tags{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;margin:1.5rem 0;padding:0}.Tags-item{border-radius:.2rem;margin:.2rem;padding:0 .3rem}.Tags-link{color:#fff}.Pagination{font-size:1.25rem;color:inherit}.Pagination--right{float:right}.Footer{text-align:center;margin:1rem 0}.u-expand{flex-grow:1}.u-wrapper{max-width:42rem;margin:auto}.u-padding{padding:0 1rem}.u-background{background:teal}.u-clickable{font-weight:700;text-decoration:none;display:inline-block}</style><meta name="generator" content="Hugo 0.93.2"></head><body><nav class="u-background"><div class="u-wrapper"><ul class="Banner"><li class="Banner-item u-expand"><a class="Banner-link u-clickable" href="/">Kevin Selwyn</a></li><li class="Banner-item"><a class="Banner-link u-clickable" href="/resume/">Resume</a></li><li class="Banner-item"><a class="Banner-link u-clickable" href="/posts/">Posts</a></li><li class="Banner-item"><a class="Banner-link u-clickable" href="/tags/">Tags</a></li><li class="Banner-item"><a class="Banner-link u-clickable" href="/categories/">Categories</a></li></ul></div></nav><main class="u-expand"><div class="u-wrapper"><div class="u-padding"><article><header class="Heading"><h2 class="Heading-title"><a class="Heading-link u-clickable" href="/posts/l337-web-component/" rel="bookmark">l337 Web Component</a></h2><div class="time-info"><time datetime="2019-03-05T09:34:16-05:00">5 March, 2019</time><div class="read-time">&nbsp;</div></div></header><p>Let&rsquo;s make a <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components" target="_blank">Web Component</a> that transforms the text inside to <a href="https://en.wikipedia.org/wiki/Leet" target="_blank">l337 5p34k</a>.</p><p>Here&rsquo;s a working example. Type to translate to l337 5p34k:</p><div class="l337-5p34k"><input type="text" placeholder="The quick red fox jumps over the lazy brown dog."><l337-5p34k>The quick red fox jumps over the lazy brown dog.</l337-5p34k></div><p>Starting with the implementation, this is what we want the markup to look like:</p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">l337-5p34k</span><span class="p">&gt;</span>The quick red fox jumps over the lazy brown dog.<span class="p">&lt;/</span><span class="nt">l337-5p34k</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>To define a Custom Element, we must use <strong><code>window.customElements</code></strong>, specifically <strong><code>window.customElements.define</code></strong>:</p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">L3375P34K</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// will define below
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">customElements</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s1">&#39;l337-5p34k&#39;</span><span class="p">,</span> <span class="nx">L3375P34K</span><span class="p">);</span>
+</span></span></code></pre></div><p>One thing to note is that the name for a new Custom Element <em>must</em> contain a hyphen. This forces us to namespace our new component.</p><p>Now we create the class that defines the Custom Element:</p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">L337MAPPING</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">a</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">e</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">g</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">o</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">s</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">t</span><span class="o">:</span> <span class="mi">7</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">L3375P34K</span> <span class="kr">extends</span> <span class="nx">HTMLElement</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">super</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">shadowTextNode</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">textNode</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">observer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MutationObserver</span><span class="p">((</span><span class="nx">e</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kr">const</span> <span class="nx">text</span> <span class="o">=</span> <span class="nx">e</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">addedNodes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">textContent</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="nx">_onTranslate</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">observer</span><span class="p">.</span><span class="nx">observe</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">childList</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">shadow</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">attachShadow</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;open&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nx">shadow</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">shadowTextNode</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">connectedCallback</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;readystatechange&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">adoptedCallback</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">disconnectedCallback</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">document</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s1">&#39;readystatechange&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">observer</span><span class="p">.</span><span class="nx">disconnect</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">_onLoad</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">!==</span> <span class="s1">&#39;complete&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">textNode</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">node</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="nx">node</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">===</span> <span class="mi">3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">})</span>
+</span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="nx">shift</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">textNode</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="nx">textNode</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">textNode</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">_onTranslate</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">_onTranslate</span><span class="p">(</span><span class="nx">_text</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">text</span> <span class="o">=</span> <span class="p">(</span><span class="nx">_text</span> <span class="o">||</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">textNode</span> <span class="o">||</span> <span class="p">{}).</span><span class="nx">textContent</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="nx">trim</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">translated</span> <span class="o">=</span> <span class="nx">text</span>
+</span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">chr</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="nx">L337MAPPING</span><span class="p">[</span><span class="nx">chr</span><span class="p">]</span> <span class="o">!==</span> <span class="kc">undefined</span> <span class="o">?</span> <span class="nx">L337MAPPING</span><span class="p">[</span><span class="nx">chr</span><span class="p">]</span> <span class="o">:</span> <span class="nx">chr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">})</span>
+</span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">shadowTextNode</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">translated</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">customElements</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">customElements</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s1">&#39;l337-5p34k&#39;</span><span class="p">,</span> <span class="nx">L3375P34K</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Let&rsquo;s break that down:</p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">L337MAPPING</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">a</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">e</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">g</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">o</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">s</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">t</span><span class="o">:</span> <span class="mi">7</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p>This is our very simple Latin -&gt; l337 mapping. <strong><code>a</code></strong> becomes <strong><code>4</code></strong>, <strong><code>o</code></strong> becomes <strong><code>0</code></strong>, etc.</p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">L3375P34K</span> <span class="kr">extends</span> <span class="nx">HTMLElement</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">super</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">shadowTextNode</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">textNode</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">observer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MutationObserver</span><span class="p">((</span><span class="nx">e</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kr">const</span> <span class="nx">text</span> <span class="o">=</span> <span class="nx">e</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">addedNodes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">textContent</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="nx">_onTranslate</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">observer</span><span class="p">.</span><span class="nx">observe</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">childList</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">shadow</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">attachShadow</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;open&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nx">shadow</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">shadowTextNode</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p>Here&rsquo;s our class and constructor. Note that our class extends <strong><code>HTMLElement</code></strong>. We create a <strong><code>textNode</code></strong> that will be attached to the <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM" target="_blank">Shadow DOM</a> of our Custom Element. After that, we just bind a few callbacks that will be used later.</p><p>We also apply a listener to our Custom Element, waiting for a <strong>childList</strong> event. This is the event we will hook into to re-translate the text if the text is changed, since otherwise we are really only waiting for an element to be attached to the DOM. After the element loads (and/or after the text is changed), we trigger the <strong><code>_onTranslate()</code></strong> function.</p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="nx">connectedCallback</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;readystatechange&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">adoptedCallback</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">disconnectedCallback</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">document</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s1">&#39;readystatechange&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onLoad</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">observer</span><span class="p">.</span><span class="nx">disconnect</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// ...
+</span></span></span></code></pre></div><p>Here we have our Custom Element lifecycle methods.</p><ul><li><strong><code>connectedCallback()</code></strong> will be called when the element is connected to the DOM<ul><li>We wait for the document to be loaded. If it&rsquo;s already loaded, we move forward. This helps us instantiate the Custom Element if the page loads with it as opposed to adding it later dynamically.</li></ul></li><li><strong><code>adoptedCallback()</code></strong> will be called when the element is moved to a new document<ul><li>We trigger another load because something may have changed while the element was moving</li></ul></li><li><strong><code>disconnectedCallback()</code></strong> will be called when the element is removed/disconnected from the DOM<ul><li>We clean up some callbacks</li></ul></li></ul><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="nx">_onLoad</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">!==</span> <span class="s1">&#39;complete&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">textNode</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">node</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="nx">node</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">===</span> <span class="mi">3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">})</span>
+</span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="nx">shift</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">textNode</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="nx">textNode</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">textNode</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">_onTranslate</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// ...
+</span></span></span></code></pre></div><p>Here we try to load the Custom Element. If the document is not ready, we do not load.</p><p>Next we grab the first <strong><code>textNode</code></strong> inside the <strong><code>&lt;l337-5p34k&gt;</code></strong> element, if one does not exist, we create one and append it to the element.</p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="nx">_onTranslate</span><span class="p">(</span><span class="nx">_text</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">text</span> <span class="o">=</span> <span class="p">(</span><span class="nx">_text</span> <span class="o">||</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">textNode</span> <span class="o">||</span> <span class="p">{}).</span><span class="nx">textContent</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="nx">trim</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">translated</span> <span class="o">=</span> <span class="nx">text</span>
+</span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">chr</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="nx">L337MAPPING</span><span class="p">[</span><span class="nx">chr</span><span class="p">]</span> <span class="o">!==</span> <span class="kc">undefined</span> <span class="o">?</span> <span class="nx">L337MAPPING</span><span class="p">[</span><span class="nx">chr</span><span class="p">]</span> <span class="o">:</span> <span class="nx">chr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">})</span>
+</span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">shadowTextNode</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">translated</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// ...
+</span></span></span></code></pre></div><p>The translate function is probably the simpliest part of the entire Custom Element. It takes the textContent from the elements <strong><code>textNode</code></strong>, **<code>map()</code>**s over all the characters, replaces the appropriate ones with the <strong><code>L337MAPPING</code></strong> defined earlier, and assigns the translated text to the Shadow DOM <strong><code>textNode</code></strong>.</p><p>Last thing to do is the actual definition:</p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">customElements</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">customElements</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s1">&#39;l337-5p34k&#39;</span><span class="p">,</span> <span class="nx">L3375P34K</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>If Custom Elements are not supported, then we won&rsquo;t try to define ours. Again, our Custom Element&rsquo;s name must be hyphenated, <em>but</em> it cannot start with a number, stopping us from naming it &ldquo;1337&rdquo; (which would&rsquo;ve been much more legit).</p><p>And that&rsquo;s it!</p><p>Nice things that could be in the future:</p><ul><li>We could add custom styling to our Custom Element</li><li>We could add CSS or JS functionality to animate characters so it looks like they&rsquo;re being translated before our eyes</li></ul><footer><ul class="Tags"><li class="Tags-item u-background"><a class="Tags-link u-clickable" href="/tags/web-components/" rel="tag">web-components</a></li></ul></footer></article></div></div></main><script src="/js/bundle.min.js"></script><script src="/js/posts/l337-web-component/bundle.js"></script><script src="/js/posts/l337-web-component/l337-5p34k.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=UA-23140413-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-23140413-1")</script></body></html>
