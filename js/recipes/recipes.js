@@ -1,6 +1,312 @@
-!function(e){var t={};function n(r){if(t[r])return t[r].exports;var c=t[r]={i:r,l:!1,exports:{}};return e[r].call(c.exports,c,c.exports,n),c.l=!0,c.exports}n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var c in e)n.d(r,c,function(t){return e[t]}.bind(null,c));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=6)}([function(e,t){e.exports=React},function(e,t){e.exports=PropTypes},function(e,t,n){var r;
-/*!
-  Copyright (c) 2017 Jed Watson.
-  Licensed under the MIT License (MIT), see
-  http://jedwatson.github.io/classnames
-*/!function(){"use strict";var n={}.hasOwnProperty;function c(){for(var e=[],t=0;t<arguments.length;t++){var r=arguments[t];if(r){var a=typeof r;if("string"===a||"number"===a)e.push(r);else if(Array.isArray(r)&&r.length){var o=c.apply(null,r);o&&e.push(o)}else if("object"===a)for(var u in r)n.call(r,u)&&r[u]&&e.push(u)}}return e.join(" ")}e.exports?(c.default=c,e.exports=c):void 0===(r=function(){return c}.apply(t,[]))||(e.exports=r)}()},,,,function(e,t,n){"use strict";n.r(t);var r=n(0),c=n.n(r),a=n(1),o=n.n(a),u=n(2),i=n.n(u);function s(e,t){return function(e){if(Array.isArray(e))return e}(e)||function(e,t){if("undefined"==typeof Symbol||!(Symbol.iterator in Object(e)))return;var n=[],r=!0,c=!1,a=void 0;try{for(var o,u=e[Symbol.iterator]();!(r=(o=u.next()).done)&&(n.push(o.value),!t||n.length!==t);r=!0);}catch(e){c=!0,a=e}finally{try{r||null==u.return||u.return()}finally{if(c)throw a}}return n}(e,t)||function(e,t){if(!e)return;if("string"==typeof e)return l(e,t);var n=Object.prototype.toString.call(e).slice(8,-1);"Object"===n&&e.constructor&&(n=e.constructor.name);if("Map"===n||"Set"===n)return Array.from(e);if("Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))return l(e,t)}(e,t)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function l(e,t){(null==t||t>e.length)&&(t=e.length);for(var n=0,r=new Array(t);n<t;n++)r[n]=e[n];return r}var f=function(e){return((e||"").replace(/^PT/,"").match(/(\d+[HM])/g)||[]).map((function(e){return e.replace("H"," hours").replace("M"," minutes")})).join(" ")},m=function(e){return(document.cookie.match(new RegExp("".concat(e,"=([^;$]+)")))||[]).slice(1).shift()},d=function(e,t){document.cookie="".concat(e,"=").concat(t,"; path=").concat(document.location.pathname,";")},p=function(e){var t=Object(r.useRef)(),n=Object(r.useRef)(),a=Object(r.useRef)(!1),o=Object(r.useRef)(parseInt(m("step")||"0",10)),u=Object(r.useRef)(0),l=Object(r.useRef)([0,0]),p=s(Object(r.useState)({}),2),v=p[0],h=p[1],b=s(Object(r.useState)(o.current),2),y=b[0],E=b[1],g=s(Object(r.useState)(0),2),j=g[0],O=g[1],x=s(Object(r.useState)(!1),2),k=x[0],S=x[1],L=s(Object(r.useState)(JSON.parse(m("ingredients")||"[]")),2),T=L[0],M=L[1],w=s(Object(r.useState)(!1),2),R=w[0],A=w[1],P=function(e){h(e.target.response),O(e.target.response.recipeInstructions.length)},I=function(e){n.current.contains(e.target)||t.current.contains(e.target)||S(!1)},N=function(e){if(!k)switch(e.key){case"ArrowRight":E(Math.min(o.current+1,u.current-1));break;case"ArrowLeft":E(Math.max(o.current-1,0))}},_=function(e){var t=e.changedTouches[0];l.current=[t.pageX,t.pageY]},C=function(e){var n=e.changedTouches[0],r=[n.pageX,n.pageY];if(!(Math.abs(l.current[0]-r[0])>10||Math.abs(l.current[1]-r[1])>10||a.current||t.current.contains(e.target))){var c=document.body.clientWidth;E(r[0]>c/2?Math.min(o.current+1,u.current-1):Math.max(o.current-1,0))}},q=function(e){return function(){var t=[];t=-1===T.indexOf(e)?T.concat([e]):T.filter((function(t){return t!==e})),M(t)}};return Object(r.useEffect)((function(){if(document.addEventListener("click",I,!0),document.addEventListener("keyup",N,!0),document.addEventListener("touchstart",_,!0),document.addEventListener("touchend",C,!0),!e.url)return function(){document.removeEventListener("click",I,!0),document.removeEventListener("keyup",N,!0),document.removeEventListener("touchstart",_,!0),document.removeEventListener("touchend",C,!0)};var t=new XMLHttpRequest;return t.addEventListener("load",P,!0),t.open("GET",e.url,!0),t.responseType="json",t.send(null),function(){document.removeEventListener("click",I,!0),document.removeEventListener("keyup",N,!0),document.removeEventListener("touchstart",_,!0),document.removeEventListener("touchend",C,!0),t.removeEventListener("load",P,!0)}}),[]),Object(r.useEffect)((function(){a.current=k}),[k]),Object(r.useEffect)((function(){o.current=y,d("step",y.toString())}),[y]),Object(r.useEffect)((function(){u.current=j}),[j]),Object(r.useEffect)((function(){d("ingredients",JSON.stringify(T))}),[T]),c.a.createElement("div",{className:i()(["recipe"],{open:k})},c.a.createElement("div",{className:"header"},c.a.createElement("div",{ref:t,className:"menu",onClick:function(){S(!0)}},"☰"),c.a.createElement("h1",null,v.name),c.a.createElement("h2",null,v.description),c.a.createElement("time",{dateTime:v.prepTime},"Prep time: ".concat(f(v.prepTime))),c.a.createElement("p",null,"-"),c.a.createElement("time",{dateTime:v.cookTime},"Cook time: ".concat(f(v.cookTime))),c.a.createElement("progress",{max:j,value:y+1})),c.a.createElement("div",{ref:n,className:"sidebar"},c.a.createElement("ul",null,c.a.createElement("li",null,c.a.createElement("input",{id:"ingredients",type:"checkbox",onChange:function(){A(!R)}}),c.a.createElement("label",{htmlFor:"ingredients"},c.a.createElement("b",null,"Ingredients"))),(v.recipeIngredient||[]).map((function(e,t){var n="key-".concat(t),r=-1!==T.indexOf(n);return c.a.createElement("li",{key:n,className:i()({selected:-1!==(v.recipeInstructions.slice(y).shift()||{}).itemListElement.indexOf(e),hide:r&&R})},c.a.createElement("input",{id:n,type:"checkbox",checked:r,onChange:q(n)}),c.a.createElement("label",{htmlFor:n},e))})))),c.a.createElement("div",{className:"content"},(v.recipeInstructions||[]).map((function(e,t){return c.a.createElement("div",{key:e.name,className:i()(["step"],{show:y===t})},c.a.createElement("h3",null,e.name),c.a.createElement("time",{dateTime:e.timeRequired},"".concat(f(e.timeRequired))),c.a.createElement("p",null,e.text))}))))};p.propTypes={url:o.a.string,data:{}},p.defaultProps={url:void 0,data:o.a.object},t.default=p}]);
+import React, {useEffect, useRef, useState} from 'react';
+import PropTypes from 'prop-types';
+
+import classNames from 'classnames';
+
+const parseDuration = (duration) => {
+    return (
+        (duration || '')
+            .replace(/^PT/, '')
+            .match(/(\d+[HM])/g) || []
+    )
+        .map((val) => {
+            return val
+                .replace('H', ' hours')
+                .replace('M', ' minutes');
+        })
+        .join(' ');
+};
+
+const getItem = (key) => {
+    return (
+        document.cookie
+            .match(new RegExp(`${key}=([^;$]+)`)) || []
+    ).slice(1).shift();
+};
+
+const setItem = (key, val) => {
+    document.cookie = `${key}=${val}; path=${document.location.pathname};`;
+};
+
+/**
+ * Recipes component
+ * @param {Object} props - Props
+ * @param {string} props.url - Recipes URL
+ */
+const Recipes = (props) => {
+    const el_menu = useRef();
+    const el_sidebar = useRef();
+    const val_open = useRef(false);
+    const val_step = useRef(parseInt(getItem('step') || '0', 10));
+    const val_step_count = useRef(0);
+    const val_touch = useRef([0, 0]);
+    const [data, setData] = useState({});
+    const [step, setStep] = useState(val_step.current);
+    const [stepCount, setStepCount] = useState(0);
+    const [open, setOpen] = useState(false);
+    const [ingredients, setIngredients] = useState(JSON.parse(getItem('ingredients') || '[]'));
+    const [ingredientFilter, setIngredientFilter] = useState(false);
+    const _onRecipeLoad = (e) => {
+        setData(e.target.response);
+        setStepCount(e.target.response.recipeInstructions.length);
+    };
+    const _onOpen = () => {
+        setOpen(true);
+    };
+    const _onClose = () => {
+        setOpen(false);
+    };
+    const _onClick = (e) => {
+        if (el_sidebar.current.contains(e.target) || el_menu.current.contains(e.target)) {
+            return;
+        }
+
+        _onClose();
+    };
+    const _onKeyUp = (e) => {
+        if (open) {
+            return;
+        }
+
+        switch (e.key) {
+        case 'ArrowRight':
+            setStep(Math.min(val_step.current + 1, val_step_count.current - 1));
+
+            break;
+        case 'ArrowLeft':
+            setStep(Math.max(val_step.current - 1, 0));
+
+            break;
+        default:
+            break;
+        }
+    };
+    const _onTouchStart = (e) => {
+        const touch_obj = e.changedTouches[0];
+
+        val_touch.current = [touch_obj.pageX, touch_obj.pageY];
+    };
+    const _onTouchEnd = (e) => {
+        const touch_obj = e.changedTouches[0];
+        const new_touch = [touch_obj.pageX, touch_obj.pageY];
+
+        if (Math.abs(val_touch.current[0] - new_touch[0]) > 10) {
+            return;
+        }
+
+        if (Math.abs(val_touch.current[1] - new_touch[1]) > 10) {
+            return;
+        }
+
+        if (val_open.current) {
+            return;
+        }
+
+        if (el_menu.current.contains(e.target)) {
+            return;
+        }
+
+        const screen_width = document.body.clientWidth;
+
+        if (new_touch[0] > (screen_width / 2)) {
+            setStep(Math.min(val_step.current + 1, val_step_count.current - 1));
+        } else {
+            setStep(Math.max(val_step.current - 1, 0));
+        }
+    };
+    const _onIngredientCheck = (key) => {
+        return () => {
+            let new_ingredients = [];
+
+            if (ingredients.indexOf(key) === -1) {
+                new_ingredients = ingredients.concat([
+                    key
+                ]);
+            } else {
+                new_ingredients = ingredients
+                    .filter((ingredient) => {
+                        return ingredient !== key;
+                    });
+            }
+
+            setIngredients(new_ingredients);
+        };
+    };
+    const _onIngredientFilter = () => {
+        setIngredientFilter(!ingredientFilter);
+    };
+
+    useEffect(() => {
+        document.addEventListener('click', _onClick, true);
+        document.addEventListener('keyup', _onKeyUp, true);
+        document.addEventListener('touchstart', _onTouchStart, true);
+        document.addEventListener('touchend', _onTouchEnd, true);
+
+        if (!props.url) {
+            return () => {
+                document.removeEventListener('click', _onClick, true);
+                document.removeEventListener('keyup', _onKeyUp, true);
+                document.removeEventListener('touchstart', _onTouchStart, true);
+                document.removeEventListener('touchend', _onTouchEnd, true);
+            };
+        }
+
+        const xhr = new XMLHttpRequest();
+
+        xhr.addEventListener('load', _onRecipeLoad, true);
+
+        xhr.open('GET', props.url, true);
+        xhr.responseType = 'json';
+        xhr.send(null);
+
+        return () => {
+            document.removeEventListener('click', _onClick, true);
+            document.removeEventListener('keyup', _onKeyUp, true);
+            document.removeEventListener('touchstart', _onTouchStart, true);
+            document.removeEventListener('touchend', _onTouchEnd, true);
+
+            xhr.removeEventListener('load', _onRecipeLoad, true);
+        };
+    }, []);
+
+    useEffect(() => {
+        val_open.current = open;
+    }, [open]);
+
+    useEffect(() => {
+        val_step.current = step;
+
+        setItem('step', step.toString());
+    }, [step]);
+
+    useEffect(() => {
+        val_step_count.current = stepCount;
+    }, [stepCount]);
+
+    useEffect(() => {
+        setItem('ingredients', JSON.stringify(ingredients));
+    }, [ingredients]);
+
+    return (
+        <div
+            className={classNames([
+                'recipe'
+            ], {
+                open: open
+            })}>
+            <div
+                className="header">
+                <div
+                    ref={el_menu}
+                    className="menu"
+                    onClick={_onOpen}>
+                    {'☰'}
+                </div>
+                <h1>
+                    {data.name}
+                </h1>
+                <h2>
+                    {data.description}
+                </h2>
+                <time
+                    dateTime={data.prepTime}>
+                    {`Prep time: ${parseDuration(data.prepTime)}`}
+                </time>
+                <p>
+                    {'-'}
+                </p>
+                <time
+                    dateTime={data.cookTime}>
+                    {`Cook time: ${parseDuration(data.cookTime)}`}
+                </time>
+                <progress
+                    max={stepCount}
+                    value={step + 1} />
+            </div>
+            <div
+                ref={el_sidebar}
+                className="sidebar">
+                <ul>
+                    <li>
+                        <input
+                            id="ingredients"
+                            type="checkbox"
+                            onChange={_onIngredientFilter} />
+                        <label
+                            htmlFor="ingredients">
+                            <b>
+                                {'Ingredients'}
+                            </b>
+                        </label>
+                    </li>
+                    {
+                        (data.recipeIngredient || [])
+                            .map((recipeIngredient, i) => {
+                                const key = `key-${i}`;
+                                const checked = ingredients.indexOf(key) !== -1;
+
+                                return (
+                                    <li
+                                        key={key}
+                                        className={classNames({
+                                            selected: (data.recipeInstructions.slice(step).shift() || {}).itemListElement.indexOf(recipeIngredient) !== -1,
+                                            hide: checked && ingredientFilter
+                                        })}>
+                                        <input
+                                            id={key}
+                                            type="checkbox"
+                                            checked={checked}
+                                            onChange={_onIngredientCheck(key)} />
+                                        <label
+                                            htmlFor={key}>
+                                            {recipeIngredient}
+                                        </label>
+                                    </li>
+                                )
+                            })
+                    }
+                </ul>
+            </div>
+            <div
+                className="content">
+                {
+                    (data.recipeInstructions || [])
+                        .map((recipeInstruction, i) => {
+                            return (
+                                <div
+                                    key={recipeInstruction.name}
+                                    className={classNames([
+                                        'step'
+                                    ], {
+                                        show: step === i
+                                    })}>
+                                    <h3>
+                                        {recipeInstruction.name}
+                                    </h3>
+                                    <time
+                                        dateTime={recipeInstruction.timeRequired}>
+                                        {`${parseDuration(recipeInstruction.timeRequired)}`}
+                                    </time>
+                                    <p>
+                                        {recipeInstruction.text}
+                                    </p>
+                                </div>
+                            );
+                        })
+                }
+            </div>
+        </div>
+    );
+};
+
+Recipes.propTypes = {
+    url: PropTypes.string,
+    data: {}
+};
+
+Recipes.defaultProps = {
+    url: undefined,
+    data: PropTypes.object
+};
+
+export default Recipes;

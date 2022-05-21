@@ -1,1 +1,259 @@
-!function(t){var n={};function e(i){if(n[i])return n[i].exports;var r=n[i]={i:i,l:!1,exports:{}};return t[i].call(r.exports,r,r.exports,e),r.l=!0,r.exports}e.m=t,e.c=n,e.d=function(t,n,i){e.o(t,n)||Object.defineProperty(t,n,{enumerable:!0,get:i})},e.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},e.t=function(t,n){if(1&n&&(t=e(t)),8&n)return t;if(4&n&&"object"==typeof t&&t&&t.__esModule)return t;var i=Object.create(null);if(e.r(i),Object.defineProperty(i,"default",{enumerable:!0,value:t}),2&n&&"string"!=typeof t)for(var r in t)e.d(i,r,function(n){return t[n]}.bind(null,r));return i},e.n=function(t){var n=t&&t.__esModule?function(){return t.default}:function(){return t};return e.d(n,"a",n),n},e.o=function(t,n){return Object.prototype.hasOwnProperty.call(t,n)},e.p="",e(e.s=5)}([function(t,n){t.exports=React},function(t,n){t.exports=PropTypes},,,,function(t,n,e){"use strict";e.r(n);var i=e(0),r=e.n(i),o=e(1),a=e.n(o);function s(t){return(s="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t})(t)}function u(t,n){for(var e=0;e<n.length;e++){var i=n[e];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(t,i.key,i)}}function c(t,n){return(c=Object.setPrototypeOf||function(t,n){return t.__proto__=n,t})(t,n)}function l(t){var n=function(){if("undefined"==typeof Reflect||!Reflect.construct)return!1;if(Reflect.construct.sham)return!1;if("function"==typeof Proxy)return!0;try{return Date.prototype.toString.call(Reflect.construct(Date,[],(function(){}))),!0}catch(t){return!1}}();return function(){var e,i=p(t);if(n){var r=p(this).constructor;e=Reflect.construct(i,arguments,r)}else e=i.apply(this,arguments);return f(this,e)}}function f(t,n){return!n||"object"!==s(n)&&"function"!=typeof n?h(t):n}function h(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}function p(t){return(p=Object.setPrototypeOf?Object.getPrototypeOf:function(t){return t.__proto__||Object.getPrototypeOf(t)})(t)}var d=function(t){!function(t,n){if("function"!=typeof n&&null!==n)throw new TypeError("Super expression must either be null or a function");t.prototype=Object.create(n&&n.prototype,{constructor:{value:t,writable:!0,configurable:!0}}),n&&c(t,n)}(s,t);var n,e,o,a=l(s);function s(t){var n;return function(t,n){if(!(t instanceof n))throw new TypeError("Cannot call a class as a function")}(this,s),(n=a.call(this,t)).canvas=Object(i.createRef)(),n.context=null,n.data=null,n.pixels=[],n.animate=null,n.time=Date.now(),n.interval=1e3/t.fps,n._onInit=n._onInit.bind(h(n)),n._onPixelsInit=n._onPixelsInit.bind(h(n)),n._onCanvasInit=n._onCanvasInit.bind(h(n)),n._onStart=n._onStart.bind(h(n)),n._onStop=n._onStop.bind(h(n)),n._onRun=n._onRun.bind(h(n)),n._onDraw=n._onDraw.bind(h(n)),n}return n=s,(e=[{key:"componentDidMount",value:function(){var t=this.props,n=t.width,e=t.height,i=t.running,r=this.canvas;this.context=r.current.getContext("2d"),this.data=this.context.getImageData(0,0,n,e),this._onInit(),i&&this._onStart()}},{key:"componentDidUpdate",value:function(t){var n=this.props,e=n.width,i=n.height,r=n.running,o=n.fps;this.context instanceof CanvasRenderingContext2D||(this.context=this.canvas.current.getContext("2d"),this.data=this.context.getImageData(0,0,e,i)),t.running!==r&&r&&this._onStart(),t.fps!==o&&(this.interval=1e3/o),t.width===e&&t.height===i||(this.data=this.context.getImageData(0,0,e,i),this._onInit())}},{key:"_onInit",value:function(){this._onPixelsInit(),this._onCanvasInit()}},{key:"_onPixelsInit",value:function(){var t,n=this.props,e=n.width*n.height,i=0;for(this.pixels=this.pixels.slice(0,e),this.pixels.length<e&&(this.pixels=this.pixels.concat(new Array(e-this.pixels.length))),i=0,t=e;i<t;i+=1)this.pixels[i]=0}},{key:"_onCanvasInit",value:function(){var t=this.props,n=t.width,e=t.height,i=t.palette,r=t.transparent,o=this.canvas,a=this.context;o.current.setAttribute("width",n),o.current.setAttribute("height",e),r?a.clearRect(0,0,n,e):(a.fillStyle="#".concat(i[0].toString(16)),a.fillRect(0,0,n,e))}},{key:"_onStart",value:function(){var t=this.props,n=t.width,e=t.height,i=t.palette.length,r=0,o=e-1;for(r=0;r<n;r+=1)this.pixels[r+o*n]=i-1;this._onRun()}},{key:"_onStop",value:function(){this.animate=cancelAnimationFrame(this.animate)}},{key:"_onRun",value:function(){var t=this.interval;this.animate=cancelAnimationFrame(this.animate),this.animate=requestAnimationFrame(this._onRun);var n=Date.now(),e=n-this.time;e>t&&(this.time=n-e%t,this._onDraw())}},{key:"_onDraw",value:function(){var t=this.props,n=t.width,e=t.height,i=t.running,r=t.palette,o=t.transparent,a=this.context,s=this.data,u=0,c=0,l=0;for(a.clearRect(0,0,n,e),c=0;c<n;c+=1)for(l=1;l<e;l+=1){var f=c+l*n,h=this.pixels[f];if(0===h)this.pixels[f-n]=0;else{var p=3&Math.round(3*Math.random()),d=f-p+1,y=h-(1&p);this.pixels[d-n]=y,u+=y}}if(!i)for(l=e-1;l>e-8;l-=1)for(c=0;c<n;c+=1){var v=3&Math.round(3*Math.random()),b=Math.max(this.pixels[c+l*n]-v,0);this.pixels[c+l*n]=b,u+=b}for(l=0;l<e;l+=1)for(c=0;c<n;c+=1){var m=this.pixels[c+l*n],_=r[m];s.data[4*(c+l*n)+0]=_>>16&255,s.data[4*(c+l*n)+1]=_>>8&255,s.data[4*(c+l*n)+2]=255&_,s.data[4*(c+l*n)+3]=o&&0===m?0:255}a.putImageData(s,0,0),u||this._onStop()}},{key:"render",value:function(){return r.a.createElement("canvas",{ref:this.canvas,width:this.props.width,height:this.props.height})}}])&&u(n.prototype,e),o&&u(n,o),s}(i.Component);d.propTypes={width:a.a.number,height:a.a.number,fps:a.a.number,palette:a.a.arrayOf(a.a.number),running:a.a.boolean,transparent:a.a.boolean},d.defaultProps={width:320,height:168,fps:27,palette:[460551,2033415,3084039,4656903,5707527,6758151,7806727,9381639,10432263,11484935,12535559,13059847,14634759,14636807,14636807,14114567,14114567,14116623,13594383,13596431,13598479,13600535,13076247,13078295,13080351,12558111,12558111,12560167,12560167,12562223,12037935,12039983,12039991,13619055,14671775,15724487,16777215],running:!1,transparent:!1},n.default=d}]);
+import React, {Component, createRef} from 'react';
+import PropTypes from 'prop-types';
+
+class ReactDoomFire extends Component {
+    constructor(props) {
+        super(props);
+
+        this.canvas = createRef();
+        this.context = null;
+
+        this.data = null;
+        this.pixels = [];
+
+        this.animate = null;
+        this.time = Date.now();
+        this.interval = 1000 / props.fps;
+
+        this._onInit = this._onInit.bind(this);
+        this._onPixelsInit = this._onPixelsInit.bind(this);
+        this._onCanvasInit = this._onCanvasInit.bind(this);
+        this._onStart = this._onStart.bind(this);
+        this._onStop = this._onStop.bind(this);
+        this._onRun = this._onRun.bind(this);
+        this._onDraw = this._onDraw.bind(this);
+    }
+
+    componentDidMount() {
+        const {width, height, running} = this.props;
+        const {canvas} = this;
+
+        this.context = canvas.current.getContext('2d');
+        this.data = this.context.getImageData(0, 0, width, height);
+
+        this._onInit();
+
+        if (running) {
+            this._onStart();
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        const {width, height, running, fps} = this.props;
+
+        if (!(this.context instanceof CanvasRenderingContext2D)) {
+            this.context = this.canvas.current.getContext('2d');
+            this.data = this.context.getImageData(0, 0, width, height);
+        }
+
+        if (prevProps.running !== running && running) {
+            this._onStart();
+        }
+
+        if (prevProps.fps !== fps) {
+            this.interval = 1000 / fps;
+        }
+
+        if (prevProps.width !== width || prevProps.height !== height) {
+            this.data = this.context.getImageData(0, 0, width, height);
+            this._onInit();
+        }
+    }
+
+    _onInit() {
+        this._onPixelsInit();
+        this._onCanvasInit();
+    }
+
+    _onPixelsInit() {
+        const {width, height} = this.props;
+        const size = width * height;
+        let i = 0;
+        let l = 0;
+
+        this.pixels = this.pixels.slice(0, size);
+
+        if (this.pixels.length < size) {
+            this.pixels = this.pixels.concat(new Array(size - this.pixels.length));
+        }
+
+        for (i = 0, l = size; i < l; i += 1) {
+            this.pixels[i] = 0;
+        }
+    }
+
+    _onCanvasInit() {
+        const {width, height, palette, transparent} = this.props;
+        const {canvas, context} = this;
+
+        canvas.current.setAttribute('width', width);
+        canvas.current.setAttribute('height', height);
+
+        if (transparent) {
+            context.clearRect(0, 0, width, height);
+        } else {
+            context.fillStyle = `#${palette[0].toString(16)}`;
+            context.fillRect(0, 0, width, height);
+        }
+    }
+
+    _onStart() {
+        const {width, height, palette} = this.props;
+        const {length} = palette;
+        let x = 0;
+        let y = height - 1;
+
+        for (x = 0; x < width; x += 1) {
+            this.pixels[x + (y * width)] = length - 1;
+        }
+
+        this._onRun();
+    }
+
+    _onStop() {
+        this.animate = cancelAnimationFrame(this.animate);
+    }
+
+    _onRun() {
+        const {interval} = this;
+
+        this.animate = cancelAnimationFrame(this.animate);
+        this.animate = requestAnimationFrame(this._onRun);
+
+        const now = Date.now();
+        const elapsed = now - this.time;
+
+        if (elapsed > interval) {
+            this.time = now - (elapsed % interval);
+
+            this._onDraw();
+        }
+    }
+
+    _onDraw() {
+        const {width, height, running, palette, transparent} = this.props;
+        const {context, data} = this;
+        let total = 0;
+        let x = 0;
+        let y = 0;
+
+        context.clearRect(0, 0, width, height);
+
+        for (x = 0; x < width; x += 1) {
+            for (y = 1; y < height; y += 1) {
+                const src = x + (y * width);
+                const pixel = this.pixels[src];
+
+                if (pixel === 0) {
+                    this.pixels[src - width] = 0;
+                } else {
+                    const rand = Math.round(Math.random() * 3) & 3;
+                    const dest = src - rand + 1;
+                    const val = pixel - (rand & 1);
+
+                    this.pixels[dest - width] = val;
+
+                    total += val;
+                }
+            }
+        }
+
+        if (!running) {
+            for (y = height - 1; y > height - 8; y -= 1) {
+                for (x = 0; x < width; x += 1) {
+                    const rand = Math.round(Math.random() * 3) & 3;
+                    const val = Math.max(this.pixels[x + (y * width)] - rand, 0);
+
+                    this.pixels[x + (y * width)] = val;
+
+                    total += val;
+                }
+            }
+        }
+
+        for (y = 0; y < height; y += 1) {
+            for (x = 0; x < width; x += 1) {
+                const index = this.pixels[x + (y * width)];
+                const pixel = palette[index];
+
+                data.data[((x + (y * width)) * 4) + 0] = (pixel >> 16) & 0xFF;
+                data.data[((x + (y * width)) * 4) + 1] = (pixel >> 8) & 0xFF;
+                data.data[((x + (y * width)) * 4) + 2] = pixel & 0xFF;
+                data.data[((x + (y * width)) * 4) + 3] = transparent ? ((index === 0) ? 0 : 255) : 255;
+            }
+        }
+
+        context.putImageData(data, 0, 0);
+
+        if (!total) {
+            this._onStop();
+        }
+    }
+
+    render() {
+        return (
+            <canvas
+                ref={this.canvas}
+                width={this.props.width}
+                height={this.props.height} />
+        );
+    }
+}
+
+ReactDoomFire.propTypes = {
+    width: PropTypes.number,
+    height: PropTypes.number,
+    fps: PropTypes.number,
+    palette: PropTypes.arrayOf(PropTypes.number),
+    running: PropTypes.boolean,
+    transparent: PropTypes.boolean
+};
+
+ReactDoomFire.defaultProps = {
+    width: 320,
+    height: 168,
+    fps: 27,
+    palette: [
+        0x070707,
+        0x1F0707,
+        0x2F0F07,
+        0x470F07,
+        0x571707,
+        0x671F07,
+        0x771F07,
+        0x8F2707,
+        0x9F2F07,
+        0xAF3F07,
+        0xBF4707,
+        0xC74707,
+        0xDF4F07,
+        0xDF5707,
+        0xDF5707,
+        0xD75F07,
+        0xD75F07,
+        0xD7670F,
+        0xCF6F0F,
+        0xCF770F,
+        0xCF7F0F,
+        0xCF8717,
+        0xC78717,
+        0xC78F17,
+        0xC7971F,
+        0xBF9F1F,
+        0xBF9F1F,
+        0xBFA727,
+        0xBFA727,
+        0xBFAF2F,
+        0xB7AF2F,
+        0xB7B72F,
+        0xB7B737,
+        0xCFCF6F,
+        0xDFDF9F,
+        0xEFEFC7,
+        0xFFFFFF
+    ],
+    running: false,
+    transparent: false
+};
+
+export default ReactDoomFire;

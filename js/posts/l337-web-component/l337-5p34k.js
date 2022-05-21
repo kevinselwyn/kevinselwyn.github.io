@@ -1,1 +1,87 @@
-!function(t){var e={};function n(o){if(e[o])return e[o].exports;var r=e[o]={i:o,l:!1,exports:{}};return t[o].call(r.exports,r,r.exports,n),r.l=!0,r.exports}n.m=t,n.c=e,n.d=function(t,e,o){n.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:o})},n.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},n.t=function(t,e){if(1&e&&(t=n(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var o=Object.create(null);if(n.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var r in t)n.d(o,r,function(e){return t[e]}.bind(null,r));return o},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,"a",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p="",n(n.s=9)}({9:function(t,e){function n(t){return(n="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t})(t)}function o(t,e){for(var n=0;n<e.length;n++){var o=e[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(t,o.key,o)}}function r(t,e){return!e||"object"!==n(e)&&"function"!=typeof e?u(t):e}function u(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}function i(t){var e="function"==typeof Map?new Map:void 0;return(i=function(t){if(null===t||(n=t,-1===Function.toString.call(n).indexOf("[native code]")))return t;var n;if("function"!=typeof t)throw new TypeError("Super expression must either be null or a function");if(void 0!==e){if(e.has(t))return e.get(t);e.set(t,o)}function o(){return c(t,arguments,l(this).constructor)}return o.prototype=Object.create(t.prototype,{constructor:{value:o,enumerable:!1,writable:!0,configurable:!0}}),f(o,t)})(t)}function c(t,e,n){return(c=a()?Reflect.construct:function(t,e,n){var o=[null];o.push.apply(o,e);var r=new(Function.bind.apply(t,o));return n&&f(r,n.prototype),r}).apply(null,arguments)}function a(){if("undefined"==typeof Reflect||!Reflect.construct)return!1;if(Reflect.construct.sham)return!1;if("function"==typeof Proxy)return!0;try{return Date.prototype.toString.call(Reflect.construct(Date,[],(function(){}))),!0}catch(t){return!1}}function f(t,e){return(f=Object.setPrototypeOf||function(t,e){return t.__proto__=e,t})(t,e)}function l(t){return(l=Object.setPrototypeOf?Object.getPrototypeOf:function(t){return t.__proto__||Object.getPrototypeOf(t)})(t)}var s={a:4,e:3,g:6,o:0,s:5,t:7},d=function(t){!function(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function");t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,writable:!0,configurable:!0}}),e&&f(t,e)}(y,t);var e,n,i,c,d,p=(e=y,n=a(),function(){var t,o=l(e);if(n){var u=l(this).constructor;t=Reflect.construct(o,arguments,u)}else t=o.apply(this,arguments);return r(this,t)});function y(){var t;return function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,y),(t=p.call(this)).shadowTextNode=document.createTextNode(""),t.textNode=null,t.observer=new MutationObserver((function(e){var n=e[0].addedNodes[0].textContent;t._onTranslate(n)})),t.observer.observe(u(t),{childList:!0}),t.attachShadow({mode:"open"}).appendChild(t.shadowTextNode),t._onLoad=t._onLoad.bind(u(t)),t}return i=y,(c=[{key:"connectedCallback",value:function(){document.addEventListener("readystatechange",this._onLoad,!0),this._onLoad()}},{key:"adoptedCallback",value:function(){this._onLoad()}},{key:"disconnectedCallback",value:function(){document.removeEventListener("readystatechange",this._onLoad,!0),this.observer.disconnect()}},{key:"_onLoad",value:function(){"complete"===document.readyState&&(this.textNode=Array.prototype.slice.call(this.childNodes).filter((function(t){return 3===t.nodeType})).shift(),this.textNode||(this.textNode=document.createTextNode(""),this.appendChild(this.textNode)),this._onTranslate())}},{key:"_onTranslate",value:function(t){var e=(t||(this.textNode||{}).textContent||"").trim().toLowerCase().split("").map((function(t){return void 0!==s[t]?s[t]:t})).join("");this.shadowTextNode.textContent=e}}])&&o(i.prototype,c),d&&o(i,d),y}(i(HTMLElement));window.customElements&&customElements.define("l337-5p34k",d)}});
+const L337MAPPING = {
+    a: 4,
+    e: 3,
+    g: 6,
+    o: 0,
+    s: 5,
+    t: 7
+};
+
+class L3375P34K extends HTMLElement {
+    constructor() {
+        super();
+
+        this.shadowTextNode = document.createTextNode('');
+        this.textNode = null;
+        this.observer = new MutationObserver((e) => {
+            const text = e[0].addedNodes[0].textContent;
+
+            this._onTranslate(text);
+        });
+
+        this.observer.observe(this, {
+            childList: true
+        });
+
+        const shadow = this.attachShadow({
+            mode: 'open'
+        });
+
+        shadow.appendChild(this.shadowTextNode);
+
+        this._onLoad = this._onLoad.bind(this);
+    }
+
+    connectedCallback() {
+        document.addEventListener('readystatechange', this._onLoad, true);
+        this._onLoad();
+    }
+
+    adoptedCallback() {
+        this._onLoad();
+    }
+
+    disconnectedCallback() {
+        document.removeEventListener('readystatechange', this._onLoad, true);
+
+        this.observer.disconnect();
+    }
+
+    _onLoad() {
+        if (document.readyState !== 'complete') {
+            return;
+        }
+
+        this.textNode = Array.prototype.slice.call(this.childNodes)
+            .filter((node) => {
+                return node.nodeType === 3;
+            })
+            .shift();
+
+        if (!this.textNode) {
+            this.textNode = document.createTextNode('');
+
+            this.appendChild(this.textNode);
+        }
+
+        this._onTranslate()
+    }
+
+    _onTranslate(_text) {
+        const text = (_text || (this.textNode || {}).textContent || '')
+            .trim()
+            .toLowerCase();
+        const translated = text
+            .split('')
+            .map((chr) => {
+                return L337MAPPING[chr] !== undefined ? L337MAPPING[chr] : chr;
+            })
+            .join('');
+
+        this.shadowTextNode.textContent = translated;
+    }
+}
+
+if (window.customElements) {
+    customElements.define('l337-5p34k', L3375P34K);
+}
